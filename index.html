@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Валентинка</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    background: linear-gradient(180deg, #ffc2d1, #ffe6eb);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Экран открытия */
+#startScreen {
+    text-align: center;
+}
+
+button {
+    background: #ff4d6d;
+    color: white;
+    border: none;
+    padding: 16px 28px;
+    font-size: 20px;
+    border-radius: 14px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* Карточка */
+.card {
+    display: none;
+    width: 90%;
+    max-width: 380px;
+    background: white;
+    padding: 20px;
+    border-radius: 24px;
+    text-align: center;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    animation: appear 0.6s ease;
+    z-index: 2;
+}
+
+@keyframes appear {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* Сердце с фото */
+.heart-frame {
+    width: 260px;
+    height: 240px;
+    margin: 20px auto;
+    animation: heartbeat 1.5s infinite ease-in-out;
+}
+
+.heart-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    clip-path: path("M130 230 L20 110 A60 60 0 0 1 130 50 A60 60 0 0 1 240 110 Z");
+
+    border: 6px solid #ff8fa3;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+
+/* Пульсация */
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    25% { transform: scale(1.05); }
+    40% { transform: scale(1); }
+    60% { transform: scale(1.08); }
+    100% { transform: scale(1); }
+}
+
+.message {
+    font-size: 18px;
+}
+
+/* Падающие сердечки */
+.heart {
+    position: absolute;
+    font-size: 20px;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    from { transform: translateY(-10vh); }
+    to { transform: translateY(110vh); }
+}
+</style>
+</head>
+
+<body>
+
+<div id="startScreen">
+    <h1>💌 Любимому куратору💌</h1>
+    <button onclick="openCard()">Открыть</button>
+</div>
+
+<div class="card" id="card">
+    <h2>С 14 февраля ❤️</h2>
+
+    <div class="heart-frame">
+        <img src="img/photo_2026-02-15_14-45-20.jpg" alt="Фото">
+    </div>
+
+    <p class="message">
+        С Днём святого Валентина ❤️
+    </p>
+</div>
+
+<script>
+function openCard() {
+    document.getElementById("startScreen").style.display = "none";
+    document.getElementById("card").style.display = "block";
+    startHearts();
+}
+
+function startHearts() {
+    setInterval(createHeart, 250);
+}
+
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "💗";
+
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.animationDuration = (4 + Math.random() * 3) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 7000);
+}
+</script>
+
+</body>
+</html>
